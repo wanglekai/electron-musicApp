@@ -1,18 +1,26 @@
 <template>
   <div id="app">
-    <router-view/>
+    <my-header></my-header>
+    <!-- <router-view/> -->
   </div>
 </template>
 
 <script>
+import myHeader from '@/views/my-header/index'
 export default {
-  name: 'App'
+  name: 'App',
+  components:{
+    'my-header':myHeader
+  }
 }
 </script>
 
 <style>
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
+}
+body{
+  margin: 0;
 }
 ul,li,p,h1,h2,h3,h4,section,main,aside,dl,dt,dd{
   margin: 0;

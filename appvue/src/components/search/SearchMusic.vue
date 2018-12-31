@@ -56,7 +56,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   .search-wrapper {
     width: 500px;
   }
