@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
+    <h1><el-button type="primary">主要按钮</el-button></h1>
+    <h2>小帅吃水饺</h2>
     <ul>
       <li>
         <a
