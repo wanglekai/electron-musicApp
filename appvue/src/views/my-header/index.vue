@@ -12,10 +12,8 @@
         {{item.name}}
       </li>
       </ul>
-    </section>
-    <div class="search_component">
       <search-music></search-music>
-    </div>
+    </section>
   </div>
 </template>
 <script>
@@ -51,15 +49,11 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="less">
 .box{
-  display: flex;
-  width: 1200px;
-  margin: 0 auto;
-  justify-content: space-around;
-  align-items: center;
   background: #fff;
 }
 section{
-  max-width: 1000px;
+  margin: 0 auto;
+  max-width: 1100px;
   height: 90px;
   display: flex;
   align-items: center;
@@ -74,6 +68,7 @@ section{
   }
   ul{
     display: inline-flex;
+    margin-right: 20px;
     li{
       line-height: 90px;
       padding: 0 15px;
