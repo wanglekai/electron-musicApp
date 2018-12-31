@@ -3,10 +3,19 @@
     <section>
       <h1>音乐</h1>
       <ul>
-        <li v-for="(item,index) in navList" :class="{ select:selectNav===item.type }" @click="changeNav(item.type)">{{item.name}}</li>
+        <li 
+          v-for="(item) in navList" 
+          :class="{ select:selectNav===item.type }" 
+          :key="item.type"  
+          @click="changeNav(item.type)"
+        >
+        {{item.name}}
+      </li>
       </ul>
     </section>
-    <search-music></search-music>
+    <div class="search_component">
+      <search-music></search-music>
+    </div>
   </div>
 </template>
 <script>
@@ -19,7 +28,7 @@ export default {
     return {
       navList:navListData,
       selectNav:0
-    }
+    } 
   },
   methods:{
     changeNav(index){
@@ -27,12 +36,12 @@ export default {
     }
   },
   created(){
-    let url = 
-    '/splcloud/fcgi-bin/smartbox_new.fcg?is_xml=0&key=a&g_tk=5381&loginUin=0&hostUin=0&format=json&inCharset=utf8&outCharset=utf-8&notice=0&platform=yqq.json&needNewCode=0';
-    //key 是input中的值
-    axios.get(url).then(res =>{
-        console.log(res.data.data);
-    })
+    // let url = 
+    // '/splcloud/fcgi-bin/smartbox_new.fcg?is_xml=0&key=a&g_tk=5381&loginUin=0&hostUin=0&format=json&inCharset=utf8&outCharset=utf-8&notice=0&platform=yqq.json&needNewCode=0';
+    // //key 是input中的值
+    // axios.get(url).then(res =>{
+    //     console.log(res.data.data);
+    // })
   },
   components:{
     SearchMusic
@@ -42,12 +51,16 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="less">
 .box{
+  display: flex;
+  width: 1200px;
+  margin: 0 auto;
+  justify-content: space-around;
+  align-items: center;
   background: #fff;
 }
 section{
   max-width: 1000px;
   height: 90px;
-  margin: 0 auto;
   display: flex;
   align-items: center;
   h1{
@@ -63,7 +76,7 @@ section{
     display: inline-flex;
     li{
       line-height: 90px;
-      padding: 0 20px;
+      padding: 0 15px;
       font-size: 18px;
       cursor: pointer;
       &:hover{
