@@ -6,10 +6,12 @@
         <li v-for="(item,index) in navList" :class="{ select:selectNav===item.type }" @click="changeNav(item.type)">{{item.name}}</li>
       </ul>
     </section>
+    <search-music></search-music>
   </div>
 </template>
 <script>
 import { navListData } from './unit/unit.js'
+import SearchMusic from '@/components/search/SearchMusic'
 export default {
   name: 'myheader',
   data () {
@@ -22,6 +24,9 @@ export default {
     changeNav(index){
       this.selectNav = index;
     }
+  },
+  components:{
+    SearchMusic
   }
 }
 </script>
