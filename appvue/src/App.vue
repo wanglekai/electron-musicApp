@@ -1,12 +1,17 @@
 <template>
   <div id="app">
-    <router-view/>
+    <my-header></my-header>
+    <!-- <router-view/> -->
   </div>
 </template>
 
 <script>
+import myHeader from '@/views/my-header/index'
 export default {
-  name: 'App'
+  name: 'App',
+  components:{
+    'my-header':myHeader
+  }
 }
 </script>
 
@@ -14,7 +19,10 @@ export default {
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
 }
-ul,li,p,h1,h2,h3,h4,section,main,aside{
+body{
+  background-color: #ddd;
+}
+body,ul,li,p,h1,h2,h3,h4,section,main,aside{
   margin: 0;
   padding: 0;
 }
