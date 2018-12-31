@@ -1,38 +1,42 @@
 <template>
   <div class="search-wrapper">
     <el-input 
-      placeholder="请输入内容"
+      placeholder="搜素音乐、歌手"
       v-model="searchContent"
       @blur="handleInputBlur"
+      @focus="handleInputFocus"
       class="input-with-select"
     >
       <el-select v-model="select" slot="prepend">
-        <el-option label="网易云音乐" value="1"></el-option>
-        <el-option label="QQ音乐" value="2"></el-option>
+        <el-option label="QQ音乐" value="1"></el-option>
+        <el-option label="网易云音乐" value="2"></el-option>
       </el-select>
       <el-button slot="append" icon="el-icon-search"></el-button>
     </el-input>
-    <dl class="search-hint" :class="{searchIsFocus: isFocus}">
+    <dl 
+      class="search-hint" 
+      :class="{searchIsFocus: isFocus}"
+      v-show="singers.length && songs.length"
+    >
       <dt>
         <i class="el-icon-service"></i>
         <span class="classify">单曲</span>
       </dt>
       <dd>
         <ul>
-          <li>XXX-XXX</li>
-          <li>YYY-YYY</li>
-          <li>ZZZ-ZZZ</li>
-          <li>NNN-NNN</li>
+          <li v-for="song in songs" :key="song.docid">
+            <span>{{song.name}}</span>
+            <span class="singer">- {{song.singer}}</span>
+          </li>
         </ul>
       </dd>
-      <dt>
+      <dt v-show="singers.length">
         <i class="el-icon-info"></i>
         <span class="classify">歌手</span>
       </dt>
       <dd>
-        <ul>
-          <li>PPP-PP</li>
-          <li>MMM-MM</li>
+        <ul v-show="singers.length">
+          <li v-for="singer in singers" :key="singer.docid">{{singer.name}}</li>
         </ul>
       </dd>
     </dl>
@@ -40,6 +44,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import {
   Input,
   Select
@@ -51,17 +56,33 @@ export default {
     return {
       isFocus: false,
       searchContent: '',
-      select: '1'
+      select: '1',
+      songs: [],
+      singers: []
     }
   },
   methods: {
     handleInputBlur () {
       this.isFocus = false
+    },
+    handleInputFocus () {
+      this.isFocus = true
+    },
+    getData (value) {
+      let url = 
+    `/splcloud/fcgi-bin/smartbox_new.fcg?is_xml=0&key=${value}&g_tk=5381&loginUin=0&hostUin=0&format=json&inCharset=utf8&outCharset=utf-8&notice=0&platform=yqq.json&needNewCode=0`;
+    //key 是input中的值
+     axios.get(url).then(result =>{
+       const res = result.data
+       this.songs = res.data.song.itemlist
+       this.singers = res.data.singer.itemlist
+     })
     }
   },
   watch: {
     searchContent (value) {
       if (value.trim()!=='') {
+        this.getData(value)
         this.isFocus = true
       }
       else {
@@ -74,7 +95,7 @@ export default {
 <style lang='less'>
   .search-wrapper {
     position: relative;
-    width: 500px;
+    width: 400px;
     .el-select .el-input {
       width: 130px;
     }
@@ -86,7 +107,7 @@ export default {
       position: absolute;
       left: 131px;
       box-sizing: border-box;
-      width: 312px;
+      width: 212px;
       border: 1px solid #ccc;
       border-top: none;
       z-index: 99;
@@ -99,9 +120,19 @@ export default {
       
       ul li {
         padding: 10px 10px 10px 40px;
-        &:hover{
+        overflow: hidden; /*自动隐藏文字*/
+        text-overflow: ellipsis;/*文字隐藏后添加省略号*/
+        white-space: nowrap;/*强制不换行*/
+        font-size: 14px;
+        .singer {
+          color: #999;
+        }
+        &:hover {
           background-color: #409EFF;
           color: #fff;
+          .singer {
+            color: #fff;
+          }
         }
       }
     }

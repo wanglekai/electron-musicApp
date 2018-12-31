@@ -12,10 +12,6 @@ let navListData = [
       type:2
     },
     {
-      name:'随便听听',
-      type:3
-    },
-    {
       name:'联系作者',
       type:4
     }
