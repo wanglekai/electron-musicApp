@@ -14,7 +14,7 @@ export default {
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
 }
-ul,li,p,h1,h2,h3,h4,section,main,aside{
+ul,li,p,h1,h2,h3,h4,section,main,aside,dl,dt,dd{
   margin: 0;
   padding: 0;
 }
