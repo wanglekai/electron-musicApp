@@ -3,7 +3,14 @@
     <section>
       <h1>音乐</h1>
       <ul>
-        <li v-for="(item,index) in navList" :class="{ select:selectNav===item.type }" @click="changeNav(item.type)">{{item.name}}</li>
+        <li 
+          v-for="(item) in navList" 
+          :class="{ select:selectNav===item.type }" 
+          :key="item.type"  
+          @click="changeNav(item.type)"
+        >
+        {{item.name}}
+      </li>
       </ul>
     </section>
     <search-music></search-music>
