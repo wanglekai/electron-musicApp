@@ -19,8 +19,16 @@ module.exports = {
     errorOverlay: true,
     notifyOnErrors: true,
     poll: false, // https://webpack.js.org/configuration/dev-server/#devserver-watchoptions-
-
-    
+    //跨域问题
+    proxyTable: {
+      '/': {
+        target: 'http://c.y.qq.com',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/': '/'
+        }
+      }
+    },
     /**
      * Source Maps
      */
