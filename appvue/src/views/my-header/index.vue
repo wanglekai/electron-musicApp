@@ -12,6 +12,7 @@
 <script>
 import { navListData } from './unit/unit.js'
 import SearchMusic from '@/components/search/SearchMusic'
+import axios from 'axios'
 export default {
   name: 'myheader',
   data () {
@@ -24,6 +25,14 @@ export default {
     changeNav(index){
       this.selectNav = index;
     }
+  },
+  created(){
+    let url = 
+    '/splcloud/fcgi-bin/smartbox_new.fcg?is_xml=0&key=a&g_tk=5381&loginUin=0&hostUin=0&format=json&inCharset=utf8&outCharset=utf-8&notice=0&platform=yqq.json&needNewCode=0';
+    //key 是input中的值
+    axios.get(url).then(res =>{
+        console.log(res.data.data);
+    })
   },
   components:{
     SearchMusic
