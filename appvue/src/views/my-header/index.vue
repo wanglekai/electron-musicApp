@@ -46,11 +46,11 @@ export default {
     }
         //如果是第一次运行项目，先进入根目录下的 WYYMusicApi文件，cnpm install
         //每次运行项目前，先单独开一个命令行，进入根目录下的 WYYMusicApi ,运行 node app.js 
-    let key = '大海'
-        //key 是input中的值
-    axios.get(`http://localhost:3000/search?keywords=${key}`).then(res =>{
-      console.log(res);
-    })
+    // let key = '大海'
+    //     //key 是input中的值
+    // axios.get(`http://localhost:3000/search?keywords=${key}`).then(res =>{
+    //   console.log(res);
+    // })
   },
   components:{
     SearchMusic

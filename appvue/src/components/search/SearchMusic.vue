@@ -69,21 +69,36 @@ export default {
         this.isFocus = true
       }
     },
-    getData (value) {
-      let url = 
-    `/splcloud/fcgi-bin/smartbox_new.fcg?is_xml=0&key=${value}&g_tk=5381&loginUin=0&hostUin=0&format=json&inCharset=utf8&outCharset=utf-8&notice=0&platform=yqq.json&needNewCode=0`;
-    //key 是input中的值
-     axios.get(url).then(result =>{
-       const res = result.data
-       this.songs = res.data.song.itemlist
-       this.singers = res.data.singer.itemlist
-     })
+    getQQMusicData (value) {
+      let origin = `https://bird.ioliu.cn/v1?url=`
+      let url = origin + `http://c.y.qq.com/splcloud/fcgi-bin/smartbox_new.fcg?is_xml=0&key=${value}&g_tk=5381&loginUin=0&hostUin=0&format=json&inCharset=utf8&outCharset=utf-8&notice=0&platform=yqq.json&needNewCode=0`
+      //key 是input中的值
+      axios.get(url).then( result =>{
+        const res = result.data
+          this.songs = res.data.song.itemlist
+          this.singers = res.data.singer.itemlist
+      })
+    },
+    getWangYiMusicData (value) {
+      console.log(value);
+      
+      // let key = '大海'
+        //key 是input中的值
+      // axios.get(`http://localhost:3000/search?keywords=${value}`).then(res =>{
+      //   console.log(res);
+      // })
     }
   },
   watch: {
     searchContent (value) {
       if (value.trim()!=='') {
-        this.getData(value)
+        if (this.select==='1') {
+          //搜素 qq 音乐
+          this.getQQMusicData(value)
+        } else {
+          // 搜素网易云音乐
+          this.getWangYiMusicData(value)
+        }
         this.isFocus = true
       }
       else {
