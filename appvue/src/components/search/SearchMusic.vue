@@ -15,7 +15,11 @@
     <dl
       class="search-hint" 
       :class="{searchIsFocus: isFocus}"
+<<<<<<< HEAD
       v-show="this.songs.length || this.singers.length"
+=======
+      v-show="this.songs.length || this.singers.length "
+>>>>>>> upstream/senlin-dev
     >
       <dt v-show="this.songs.length">
         <i class="el-icon-service"></i>
@@ -48,6 +52,7 @@
 
 <script>
 import axios from 'axios'
+import {mapState,mapGetters,mapActions} from 'vuex';
 import {
   Input,
   Select
@@ -74,26 +79,26 @@ export default {
       }
     },
     handlerSongClick (item) {
-      // console.log(item);
-      this.$emit("clickItemSong", item)
+      //这里修改一下，不需要触发父级函数，而是直接更新vuex中的数值
+      this.$store.dispatch('setStatus',true);
+      this.$store.dispatch('updataCard',item);
     },
     getQQMusicData (value) {
       if (!value) return
       let origin = `https://bird.ioliu.cn/v1?url=`
       let url = origin + `http://c.y.qq.com/splcloud/fcgi-bin/smartbox_new.fcg?is_xml=0&key=${value}&g_tk=5381&loginUin=0&hostUin=0&format=json&inCharset=utf8&outCharset=utf-8&notice=0&platform=yqq.json&needNewCode=0`
       //key 是input中的值
+      if(!value) return
       axios.get(url).then( result =>{
         const res = result.data
-          this.songs = res.data.song.itemlist
-          this.singers = res.data.singer.itemlist
+        this.songs = res.data.song.itemlist
+        this.singers = res.data.singer.itemlist
       })
     },
     getWangYiMusicData (value) {
       let url = `http://localhost:3000/search/suggest?keywords=${value}`
-
       axios.get(url).then(res =>{
         const data = res.data.result
-        // console.log(data);
         this.songs = data.songs || []
         this.singers = data.artists || []
       }) 
@@ -103,7 +108,7 @@ export default {
     searchContent (value) {
       if (value.trim()!=='') {
         if (this.select==='1') {
-          //搜素 qq 音乐
+          //搜素qq音乐
           this.searchContent.trim() !=='' && this.getQQMusicData(value)
         } else {
           // 搜素网易云音乐

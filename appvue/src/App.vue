@@ -2,15 +2,20 @@
   <div id="app">
     <my-header></my-header>
     <!-- <router-view/> -->
+    <musicCardDL></musicCardDL>
   </div>
 </template>
 
 <script>
 import myHeader from '@/views/my-header/index'
+import musicCardDL from '@/components/dialog/music-card'
+import {mapState,mapGetters,mapActions} from 'vuex';
+import { log } from 'util';
 export default {
   name: 'App',
   components:{
-    'my-header':myHeader
+    'my-header':myHeader,
+    musicCardDL
   }
 }
 </script>
