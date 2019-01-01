@@ -37,19 +37,19 @@ export default {
     
     
               //这个是qq音乐新的跨域方式
-        let origin = `https://bird.ioliu.cn/v1?url=`
-        let url = origin + 'http://c.y.qq.com/splcloud/fcgi-bin/smartbox_new.fcg?is_xml=0&key=第三人称&g_tk=5381&loginUin=0&hostUin=0&format=json&inCharset=utf8&outCharset=utf-8&notice=0&platform=yqq.json&needNewCode=0'
-        //key 是input中的值 
-        axios.get(url).then(res =>{
-            console.log(res);
-        })
+        // let origin = `https://bird.ioliu.cn/v1?url=`
+        // let url = origin + 'http://c.y.qq.com/splcloud/fcgi-bin/smartbox_new.fcg?is_xml=0&key=第三人称&g_tk=5381&loginUin=0&hostUin=0&format=json&inCharset=utf8&outCharset=utf-8&notice=0&platform=yqq.json&needNewCode=0'
+        // //key 是input中的值 
+        // axios.get(url).then(res =>{
+        //     console.log(res);
+        // })
         //如果是第一次运行项目，先进入根目录下的 WYYMusicApi文件，cnpm install
         //每次运行项目前，先单独开一个命令行，进入根目录下的 WYYMusicApi ,运行 node app.js 
-    // let key = '大海'
-    //     //key 是input中的值
-    // axios.get(`http://localhost:3000/search?keywords=${key}`).then(res =>{
-    //   console.log(res);
-    // })
+    let key = '遥远的她'
+        //key 是input中的值
+    axios.get(`http://localhost:3000/search/suggest?keywords=${key}`).then(res =>{
+      //console.log(res);
+    })
   },
   components:{
     SearchMusic
