@@ -5,8 +5,7 @@
       v-model="searchContent"
       @blur="handleInputBlur"
       @focus="handleInputFocus"
-      class="input-with-select"
-    >
+      class="input-with-select">
       <el-select v-model="select" slot="prepend">
         <el-option label="QQ音乐" value="1"></el-option>
         <el-option label="网易云音乐" value="2"></el-option>
@@ -16,7 +15,7 @@
     <dl
       class="search-hint" 
       :class="{searchIsFocus: isFocus}"
-      v-show="this.songs.length && this.singers.length"
+      v-show="this.songs.length || this.singers.length"
     >
       <dt v-show="this.songs.length">
         <i class="el-icon-service"></i>
@@ -79,6 +78,7 @@ export default {
       this.$emit("clickItemSong", item)
     },
     getQQMusicData (value) {
+      if (!value) return
       let origin = `https://bird.ioliu.cn/v1?url=`
       let url = origin + `http://c.y.qq.com/splcloud/fcgi-bin/smartbox_new.fcg?is_xml=0&key=${value}&g_tk=5381&loginUin=0&hostUin=0&format=json&inCharset=utf8&outCharset=utf-8&notice=0&platform=yqq.json&needNewCode=0`
       //key 是input中的值
