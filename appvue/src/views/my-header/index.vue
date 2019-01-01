@@ -12,7 +12,11 @@
         {{item.name}}
       </li>
       </ul>
-      <search-music></search-music>
+      <search-music 
+        v-on:clickItemSong = "showSongDetail"
+        v-on:selectType =  "selectMusicChange"
+      >
+      </search-music>
     </section>
   </div>
 </template>
@@ -29,13 +33,18 @@ export default {
     } 
   },
   methods:{
-    changeNav(index){
+    changeNav (index) {
       this.selectNav = index;
+    },
+    showSongDetail (data) {
+      console.log(data);
+    },
+    selectMusicChange (type) {
+      console.log(type);
+      
     }
   },
   created(){
-    
-    
               //这个是qq音乐新的跨域方式
         // let origin = `https://bird.ioliu.cn/v1?url=`
         // let url = origin + 'http://c.y.qq.com/splcloud/fcgi-bin/smartbox_new.fcg?is_xml=0&key=第三人称&g_tk=5381&loginUin=0&hostUin=0&format=json&inCharset=utf8&outCharset=utf-8&notice=0&platform=yqq.json&needNewCode=0'
