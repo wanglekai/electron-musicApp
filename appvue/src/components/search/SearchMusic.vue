@@ -16,13 +16,12 @@
     <dl 
       class="search-hint" 
       :class="{searchIsFocus: isFocus}"
-      v-show="singers.length && songs.length"
     >
-      <dt>
+      <dt v-show="songs.length">
         <i class="el-icon-service"></i>
         <span class="classify">单曲</span>
       </dt>
-      <dd>
+      <dd v-show="songs.length">
         <ul>
           <li v-for="song in songs" :key="song.docid">
             <span>{{song.name}}</span>
@@ -66,7 +65,9 @@ export default {
       this.isFocus = false
     },
     handleInputFocus () {
-      this.isFocus = true
+      if (this.searchContent.trim() !=='') {
+        this.isFocus = true
+      }
     },
     getData (value) {
       let url = 
