@@ -1,7 +1,7 @@
 <template>
   <div class="box">
     <section>
-      <h1>音乐</h1>
+      <h1 :class="{isWangy:isWY}">音乐</h1>
       <ul>
         <li 
           v-for="(item) in navList" 
@@ -13,8 +13,8 @@
       </li>
       </ul>
       <search-music 
-        v-on:clickItemSong = "showSongDetail"
-        v-on:selectType =  "selectMusicChange"
+        @clickItemSong = "showSongDetail"
+        @selectType =  "selectMusicChange"
       >
       </search-music>
     </section>
@@ -29,19 +29,25 @@ export default {
   data () {
     return {
       navList:navListData,
-      selectNav:0
+      selectNav:0,
+      isWY:false
     } 
   },
   methods:{
     changeNav (index) {
       this.selectNav = index;
     },
+    //选中音乐执行此函数
     showSongDetail (data) {
-      console.log(data);
+      this.$store.dispatch('setStatus',true);
     },
     selectMusicChange (type) {
-      console.log(type);
-      
+      //type为1 是QQ 2为 网易
+      if(type === '1'){
+        this.isWY = false;
+      }else{
+        this.isWY = true;
+      }
     }
   },
   created(){
@@ -82,8 +88,11 @@ section{
     height: 46px;
     background-image: url('../../assets/logo/QQlogo.png');
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: contain;
     margin-right: 20px;
+  }
+  .isWangy{
+    background-image: url('../../assets/logo/WYYlogo.png');
   }
   ul{
     display: inline-flex;

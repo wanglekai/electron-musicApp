@@ -2,8 +2,7 @@
   <div id="app">
     <my-header></my-header>
     <!-- <router-view/> -->
-    <p @click="test">点击测试</p>
-    <musicCardDL :isShow="isShowCard"></musicCardDL>
+    <musicCardDL></musicCardDL>
   </div>
 </template>
 
@@ -14,16 +13,6 @@ import {mapState,mapGetters,mapActions} from 'vuex';
 import { log } from 'util';
 export default {
   name: 'App',
-  computed:{
-    ...mapGetters({
-      isShowCard:'isShowCard'
-    })
-  },
-  methods:{
-    test(){
-      this.$store.dispatch('hideFooter',true)
-    }
-  },
   components:{
     'my-header':myHeader,
     musicCardDL
