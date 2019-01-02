@@ -15,12 +15,8 @@
     <dl
       class="search-hint" 
       :class="{searchIsFocus: isFocus}"
-<<<<<<< HEAD
-      v-show="this.songs.length || this.singers.length"
-=======
-      v-show="this.songs.length || this.singers.length "
->>>>>>> upstream/senlin-dev
-    >
+      ref="searchHint"
+      v-show="this.songs.length || this.singers.length">
       <dt v-show="this.songs.length">
         <i class="el-icon-service"></i>
         <span class="classify">单曲</span>
@@ -29,9 +25,8 @@
         <ul class="songs_list">
           <li
             v-for="song in songs"
-            :key="song.docid" 
-            v-on:click="handlerSongClick(song)"
-          >
+            :key="song.docid"
+            @click="handlerSongClick(song)">
             <span>{{song.name}}</span>
             <span class="singer">- {{song.singer || song.artists[0].name}}</span>
           </li>
@@ -43,7 +38,11 @@
       </dt>
       <dd v-show="this.singers.length">
         <ul>
-          <li v-for="singer in singers" :key="singer.docid">{{singer.name}}</li>
+          <li
+            v-for="singer in singers"
+            :key="singer.docid">
+              {{singer.name}}
+          </li>
         </ul>
       </dd>
     </dl>
@@ -52,6 +51,7 @@
 
 <script>
 import axios from 'axios'
+import 'element-ui/lib/theme-chalk/index.css'
 import {mapState,mapGetters,mapActions} from 'vuex';
 import {
   Input,
@@ -66,17 +66,25 @@ export default {
       searchContent: '',
       select: '1',
       songs: [],
-      singers: []
+      singers: [],
+      count: -1
+    }
+  },
+  computed: {
+    // 存放 songs 和 singers 集合
+    lis: function() {
+      return this.songs.concat(this.singers)
     }
   },
   methods: {
     handleInputBlur () {
       this.isFocus = false
     },
-    handleInputFocus () {
+    handleInputFocus (e) {
       if (this.searchContent.trim() !=='') {
         this.isFocus = true
       }
+      this.addKeyDownEvent(window)
     },
     handlerSongClick (item) {
       //这里修改一下，不需要触发父级函数，而是直接更新vuex中的数值
@@ -102,6 +110,40 @@ export default {
         this.songs = data.songs || []
         this.singers = data.artists || []
       }) 
+    },
+    // 键盘“下” 监听事件
+    addKeyDownEvent (element) {
+      element.addEventListener('keydown', this.handleKeyDownEvent)
+    },
+    handleKeyDownEvent (event) {
+      if (event.keyCode === 40) {
+        if (!this.lis.length) return
+        // console.log(this.lis)
+        if (this.count > (this.lis.length-1)) {
+          this.count = -1
+        }
+        this.selectOption(++this.count)
+        console.log(this.count);   
+      } else if (event.keyCode === 38) {
+        if (!this.lis.length) return
+        // console.log(this.lis)
+        if (this.count < 1) {
+          this.count = this.lis.length
+        }
+        this.selectOption(--this.count)
+         console.log(this.count);
+      }
+    },
+    selectOption (count) {
+      const oLis = this.$refs.searchHint.querySelectorAll('li')
+      for (let i = 0; i < oLis.length; i++) {
+        const oli = oLis[i];
+        if (count == i) {
+          oli.className = 'active'
+        } else {
+          oli.className = ''
+        }
+      }
     }
   },
   watch: {
@@ -118,7 +160,10 @@ export default {
       }
       else {
          this.isFocus = false
+         this.songs = []
+         this.singers = []
       }
+      this.count = 0
     },
     select (value) {
       let content = this.searchContent
@@ -178,6 +223,13 @@ export default {
           .singer {
             color: #fff;
           }
+        }
+      }
+      .active {
+        background-color: #409EFF;
+        color: #fff;
+        .singer {
+          color: #fff;
         }
       }
     }
