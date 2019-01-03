@@ -15,6 +15,7 @@
       <search-music 
         @clickItemSong = "showSongDetail"
         @selectType =  "selectMusicChange"
+        @enterOptionSong = 'showSongsList'
       >
       </search-music>
     </section>
@@ -48,6 +49,10 @@ export default {
       }else{
         this.isWY = true;
       }
+    },
+    showSongsList (data) {
+      console.log(data);
+      
     }
   },
   created(){

@@ -84,7 +84,7 @@ export default {
       if (this.searchContent.trim() !=='') {
         this.isFocus = true
       }
-      this.addKeyDownEvent(window)
+      this.addEventKeyDownOrEnter(window)
     },
     handlerSongClick (item) {
       //这里修改一下，不需要触发父级函数，而是直接更新vuex中的数值
@@ -112,7 +112,7 @@ export default {
       }) 
     },
     // 键盘“下” 监听事件
-    addKeyDownEvent (element) {
+    addEventKeyDownOrEnter (element) {
       element.addEventListener('keydown', this.handleKeyDownEvent)
     },
     handleKeyDownEvent (event) {
@@ -122,16 +122,18 @@ export default {
         if (this.count > (this.lis.length-1)) {
           this.count = -1
         }
-        this.selectOption(++this.count)
-        console.log(this.count);   
-      } else if (event.keyCode === 38) {
+        this.selectOption(++this.count)   
+      } 
+      else if (event.keyCode === 38) {
         if (!this.lis.length) return
         // console.log(this.lis)
         if (this.count < 1) {
           this.count = this.lis.length
         }
         this.selectOption(--this.count)
-         console.log(this.count);
+      }
+      else if (event.keyCode === 13){
+        this.$emit('enterOptionSong' ,this.lis[this.count])
       }
     },
     selectOption (count) {
@@ -163,7 +165,7 @@ export default {
          this.songs = []
          this.singers = []
       }
-      this.count = 0
+      this.count = -1
     },
     select (value) {
       let content = this.searchContent
