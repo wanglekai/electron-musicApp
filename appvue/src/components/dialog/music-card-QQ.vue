@@ -1,6 +1,6 @@
 <template>
   <div class="box">
-    <el-dialog title="" :visible="isShowCard" width="700px" @close='closeDialog' :show-close="false" custom-class="dia-log">
+    <el-dialog title="" :visible="isShowCardQQ" width="700px" @close='closeDialog' :show-close="false" custom-class="dia-log">
       <section v-if="songinfo">
         <div class="img-box">
           <img v-if="songinfo.track_info.album.mid" :src="getImgSrc(songinfo.track_info.album.mid)" alt="">
@@ -40,16 +40,16 @@ export default {
   },
   computed:{
     ...mapGetters({
-      getCardData:'getCardData',
-      isShowCard:'isShowCard'
+      getCardDataQQ:'getCardDataQQ',
+      isShowCardQQ:'isShowCardQQ'
     })
   },
   methods: {
     changeVuex(){
-      this.$store.dispatch('setStatus',true)
+      this.$store.dispatch('setStatusQQ',true)
     },
     closeDialog(){
-      this.$store.dispatch('setStatus',false)
+      this.$store.dispatch('setStatusQQ',false)
     },
       // 传入歌曲的mid，拼接成图片路径  图片url拼接规则:https://y.gtimg.cn/music/photo_new/ + 业务id + R图片尺寸x图片尺寸 + 业务类型 + mid + 图片类型
     getImgSrc(midId){
@@ -78,9 +78,8 @@ export default {
     }
   },
   watch:{
-    getCardData(value){
+    getCardDataQQ(value){
       this.getQQData(value);
-      console.log(value);
     }
   }
 }

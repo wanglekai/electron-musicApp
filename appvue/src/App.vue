@@ -2,20 +2,23 @@
   <div id="app">
     <my-header></my-header>
     <!-- <router-view/> -->
-    <musicCardDL></musicCardDL>
+    <musicCardDLQQ></musicCardDLQQ>
+    <musicCardDLWYY></musicCardDLWYY>
   </div>
 </template>
 
 <script>
 import myHeader from '@/views/my-header/index'
-import musicCardDL from '@/components/dialog/music-card'
+import musicCardDLQQ from '@/components/dialog/music-card-QQ'
+import musicCardDLWYY from '@/components/dialog/music-card-WYY'
 import {mapState,mapGetters,mapActions} from 'vuex';
 import { log } from 'util';
 export default {
   name: 'App',
   components:{
     'my-header':myHeader,
-    musicCardDL
+    musicCardDLQQ,
+    musicCardDLWYY
   }
 }
 </script>
