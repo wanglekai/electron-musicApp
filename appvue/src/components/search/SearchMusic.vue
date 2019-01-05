@@ -15,32 +15,33 @@
     <dl
       class="search-hint" 
       :class="{searchIsFocus: isFocus}"
-      ref="searchHint"
-      v-show="this.songs.length || this.singers.length">
-      <dt v-show="this.songs.length">
+      v-show="songs.length || singers.length">
+      <dt v-show="songs.length">
         <i class="el-icon-service"></i>
         <span class="classify">单曲</span>
       </dt>
       <dd>
-        <ul class="songs_list">
+        <ul class="songs_list"> 
           <li
-            v-for="song in songs"
+            v-for="(song, index) in songs"
             :key="song.docid"
+            :class="{ active: count === index}"
             @click="handlerSongClick(song)">
             <span>{{song.name}}</span>
             <span class="singer">- {{song.singer || song.artists[0].name}}</span>
           </li>
         </ul>
       </dd>
-      <dt v-show="this.singers.length">
+      <dt v-show="singers.length">
         <i class="el-icon-info"></i>
         <span class="classify">歌手</span>
       </dt>
-      <dd v-show="this.singers.length">
+      <dd v-show="singers.length">
         <ul>
           <li
-            v-for="singer in singers"
-            :key="singer.docid">
+            v-for="(singer, index) in singers"
+            :key="singer.docid"
+            :class="{ active: count === index + songs.length}">
               {{singer.name}}
           </li>
         </ul>
@@ -122,7 +123,7 @@ export default {
         if (this.count > (this.lis.length-1)) {
           this.count = -1
         }
-        this.selectOption(++this.count)   
+        ++this.count
       } 
       else if (event.keyCode === 38) {
         if (!this.lis.length) return
@@ -130,21 +131,10 @@ export default {
         if (this.count < 1) {
           this.count = this.lis.length
         }
-        this.selectOption(--this.count)
+        --this.count
       }
       else if (event.keyCode === 13){
         this.$emit('enterOptionSong' ,this.lis[this.count])
-      }
-    },
-    selectOption (count) {
-      const oLis = this.$refs.searchHint.querySelectorAll('li')
-      for (let i = 0; i < oLis.length; i++) {
-        const oli = oLis[i];
-        if (count == i) {
-          oli.className = 'active'
-        } else {
-          oli.className = ''
-        }
       }
     }
   },
