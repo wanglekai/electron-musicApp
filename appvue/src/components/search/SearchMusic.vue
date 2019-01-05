@@ -17,7 +17,7 @@
       :class="{searchIsFocus: isFocus}"
       v-show="songs.length || singers.length">
       <dt v-show="songs.length">
-        <i class="el-icon-service"></i>
+        <i class="iconfont icon-ic_addmusic"></i>
         <span class="classify">单曲</span>
       </dt>
       <dd>
@@ -33,7 +33,7 @@
         </ul>
       </dd>
       <dt v-show="singers.length">
-        <i class="el-icon-info"></i>
+        <i class="iconfont icon-icon"></i>
         <span class="classify">歌手</span>
       </dt>
       <dd v-show="singers.length">

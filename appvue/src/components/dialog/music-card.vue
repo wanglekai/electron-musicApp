@@ -7,7 +7,7 @@
         </div>
         <div class="content">
           <h2 v-if="songinfo.track_info.title">{{songinfo.track_info.title}}</h2>
-          <P  v-if="songinfo.track_info.singer[0].title"class="author"><i class="el-icon-info"></i>{{songinfo.track_info.singer[0].title}}</P>
+          <P  v-if="songinfo.track_info.singer[0].title" class="author"><i class="el-icon-info"></i>{{songinfo.track_info.singer[0].title}}</P>
           <div class="detail">
             <p v-if="songinfo.track_info.album.title">专辑: {{songinfo.track_info.album.title}}</p>
             <p v-if="songinfo.info.lan">语种: {{songinfo.info.lan.content[0].value}}</p>
@@ -20,7 +20,7 @@
             <p v-if="songinfo.info.pub_time.content[0].value">发行时间: {{songinfo.info.pub_time.content[0].value}}</p>
           </div>
           <div class="btns">
-            <el-button type="primary">立即播放</el-button>
+            <el-button type="primary" @click="handlerClickPlayer">立即播放</el-button>
             <el-button>加入列表</el-button>
           </div>
         </div>
@@ -49,6 +49,9 @@ export default {
       this.$store.dispatch('setStatus',true)
     },
     closeDialog(){
+      this.$store.dispatch('setStatus',false)
+    },
+    handlerClickPlayer () {
       this.$store.dispatch('setStatus',false)
     },
       // 传入歌曲的mid，拼接成图片路径  图片url拼接规则:https://y.gtimg.cn/music/photo_new/ + 业务id + R图片尺寸x图片尺寸 + 业务类型 + mid + 图片类型
@@ -80,7 +83,7 @@ export default {
   watch:{
     getCardData(value){
       this.getQQData(value);
-      console.log(value);
+      // console.log(value);
     }
   }
 }
