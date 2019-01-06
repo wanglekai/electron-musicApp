@@ -89,8 +89,13 @@ export default {
     },
     handlerSongClick (item) {
       //这里修改一下，不需要触发父级函数，而是直接更新vuex中的数值
-      this.$store.dispatch('setStatus',true);
-      this.$store.dispatch('updataCard',item);
+      if(this.select === '1'){
+        this.$store.dispatch('setStatusQQ',true);
+        this.$store.dispatch('updataCardQQ',item);
+      }else{
+        this.$store.dispatch('updataCardWYY',item);
+        this.$store.dispatch('setStatusWYY',true);
+      }
     },
     getQQMusicData (value) {
       if (!value) return

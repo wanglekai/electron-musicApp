@@ -40,7 +40,7 @@ export default {
     },
     //选中音乐执行此函数
     showSongDetail (data) {
-      this.$store.dispatch('setStatus',true);
+      this.$store.dispatch('setStatusQQ',true);
     },
     selectMusicChange (type) {
       //type为1 是QQ 2为 网易

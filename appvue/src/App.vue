@@ -3,14 +3,16 @@
     <my-header></my-header>
     <player-footer></player-footer>
     <!-- <router-view/> -->
-    <musicCardDL></musicCardDL>
+    <musicCardDLQQ></musicCardDLQQ>
+    <musicCardDLWYY></musicCardDLWYY>
   </div>
 </template>
 
 <script>
 import myHeader from '@/views/my-header/index'
 import playerFooter from '@/views/player-footer/index'
-import musicCardDL from '@/components/dialog/music-card'
+import musicCardDLQQ from '@/components/dialog/music-card-QQ'
+import musicCardDLWYY from '@/components/dialog/music-card-WYY'
 import {mapState,mapGetters,mapActions} from 'vuex';
 import { log } from 'util';
 import '../static/iconfont/iconfont.css'
@@ -19,7 +21,8 @@ export default {
   components:{
     'my-header': myHeader,
     'player-footer': playerFooter,
-    musicCardDL
+    musicCardDLQQ,
+    musicCardDLWYY
   }
 }
 </script>

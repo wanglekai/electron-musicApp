@@ -3,15 +3,13 @@
     <div class="wrapper">
       <div class="wrapper-content">
         <div class="control_player">
-          <div class="circle prev">
-            <span class="iconfont icon-next"></span>
-          </div>
-          <div class="circle play">
-            <span class="iconfont icon-zanting"></span>
-          </div>
-          <div class="circle next">
-            <span class="iconfont icon-next"></span>
-          </div>
+          <span class="icon btn prev"></span>
+          <span
+            class="icon btn toggle"
+            :class="[isPlay ? 'play' : 'pause']"
+            @click="handlerClickToggle">
+          </span>
+          <span class="icon btn next"></span>
         </div>
         <div class="music_wrapper">
           <div class="img_cover"></div>
@@ -41,7 +39,12 @@ export default {
   name: 'PlayerFooter',
   data () {
     return {
-      text: 'PlayerFooter'
+      isPlay: true
+    }
+  },
+  methods: {
+    handlerClickToggle () {
+      this.isPlay = !this.isPlay      
     }
   }
 }
@@ -66,35 +69,51 @@ footer {
     max-width: 1100px;
     color: #fff;
     .wrapper-content {
+      width: 100%;
       display: flex;
       align-items: center;
+      justify-content: space-between;
       .control_player {
         display: flex;
         align-items: center;
-        .circle {
-          width: 32px;
-          height: 32px;
-          margin-right: 20px;
-          border-radius: 100%;
-          background-color: #000;
-          border: 2px solid #fff;
-          text-align: center;
-          line-height: 32px;
-          color:#fff;
+        .icon {
+          display: block;
+          margin-left: 20px;
+          background: url('../../assets/img/btn.png');
           cursor: pointer;
-          .icon-next {
-            font-size: 10px;
-          }
+        }
+        .prev, .next {
+          width: 36px;
+          height: 36px;
+          border-radius: 36px;
         }
         .prev {
-           transform: rotateY(180deg)
+          background-position: 0 -143px;
+          &:hover {
+            background-position: -36px -143px;
+          }
         }
+        .toggle {
+          width: 60px;
+          height: 60px;
+          border-radius: 60px;
+        }
+        .next {
+          background-position: -144px -143px;
+          &:hover {
+            background-position: -180px -143px;
+          }
+        }
+        .pause {
+          &:hover {
+            background-position: -60px 0;
+          }
+        }
+        // 切换播放 暂停状态
         .play {
-          width: 50px;
-          height: 50px;
-          line-height: 50px;
-          .icon-zanting {
-            font-size: 36px;
+          background-position: 0 -60px;
+          &:hover {
+            background-position: -60px -60px;
           }
         }
       }
@@ -106,23 +125,40 @@ footer {
           background-color: #fff;
         }
         .song_info_wrapper{
-          width: 360px;
+          width: 520px;
           height: 60px;
           padding: 0 20px;
           .song_info {
             display: flex;
             justify-content: space-between;
+            padding: 5px 0 14px 0;
           }
           .control_jindu {
-            border: 2px solid #fff;
+            position: relative;
+            border: 2px solid #909090;          
+            .control_circle {
+              position: absolute;
+              top: -8px;
+              left: -2px;
+              display: block;
+              width: 15px;
+              height: 15px;
+              background-color: #fff;
+              border-radius: 100%;
+              cursor: pointer;
+            }
           }
         }
         
       }
       .other_buttons {
         .iconfont {
+          margin-left: 40px;
           cursor: pointer;
           font-size: 24px;
+        }
+        .icon-SOUNDPLUS {
+          font-size: 30px;
         }
       }
     }
